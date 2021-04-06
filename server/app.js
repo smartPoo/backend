@@ -11,12 +11,13 @@ app.use(cors());
 app.use(express.json());
 app.use(logger("dev"));
 
-app.use("/", (req, res) => {
-  res.send(`Status OK!`);
-});
+app.post("/updateToilet", postgresController.updateToilet);
 
-app.use("/updateToilet", postgresController.updateToilet);
+app.post("/janitorClean", postgresController.janitorCompleteClean);
 
-app.listen(config.PORT, () => {
+app.post("/janitorUpdateStatus", postgresController.janitorUpdateStatus);
+
+app.listen(config.appConfig.PORT, (err) => {
   console.log(`Listening to Port ${config.appConfig.PORT}`);
+  if (err) console.log(err);
 });

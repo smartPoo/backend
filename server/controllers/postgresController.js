@@ -10,28 +10,34 @@ const pgClient = new Pool({
 });
 
 exports.updateToilet = async (req, res) => {
-  const updateStatus = pgClient.query(
-    `UPDATE Toilet SET current_dustbin=${req.body.dustbin},` +
-      ` current_tissue=${req.body.tissue},` +
-      ` current_status=${req.body.status},` +
-      ` visits_since_lastclean=${req.body.visits}` +
-      ` WHERE Toilet_no='${req.body.toilet_no}' AND Restroom_id='${req.body.restroom_id}';`
-  );
+  try {
+    const updateStatus = pgClient.query(
+      `UPDATE Toilet SET current_dustbin=${req.body.dustbin},` +
+        ` current_tissue=${req.body.tissue},` +
+        ` current_status=${req.body.status},` +
+        ` visits_since_lastclean=${req.body.visits}` +
+        ` WHERE Toilet_no='${req.body.toilet_no}' AND Restroom_id='${req.body.restroom_id}';`
+    );
 
-  const recordStatus = pgClient.query(
-    `INSERT INTO Toilet_record VALUES` +
-      `(${new Date()}, ${req.body.toilet_no}, '${req.body.restroom_id}', ${
-        req.body.dustbin
-      }, ${req.body.tissue}, ${req.body.status}, ${req.body.visits});`
-  );
+    const recordStatus = pgClient.query(
+      `INSERT INTO Toilet_record VALUES` +
+        `('${new Date().toLocaleDateString()}', ${req.body.toilet_no}, '${
+          req.body.restroom_id
+        }', ${req.body.dustbin}, ${req.body.tissue}, ${req.body.status}, ${
+          req.body.visits
+        });`
+    );
 
-  res.send(updateStatus, recordStatus);
+    res.send([updateStatus, recordStatus]);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 exports.janitorCompleteClean = async (req, res) => {
   const updateStatus = pgClient.query(
     `UPDATE Toilet SET ` +
-      ` visits_since_lastclean=0` +
+      ` visits_since_lastclean=0, current_status=0` +
       ` WHERE Toilet_no='${req.body.toilet_no}' AND Restroom_id='${req.body.restroom_id}';`
   );
 
