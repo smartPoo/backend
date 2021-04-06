@@ -1,0 +1,13 @@
+{
+    "data": [
+        {
+            "facultyName": "",
+            "buildings": [
+                {
+                    "buildingName": "1",
+                    "floor": ["1","2","3"]
+                }
+            ]
+        }   
+    ]
+}
