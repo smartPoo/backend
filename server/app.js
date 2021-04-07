@@ -17,6 +17,10 @@ app.post("/janitorClean", postgresController.janitorCompleteClean);
 
 app.post("/janitorUpdateStatus", postgresController.janitorUpdateStatus);
 
+app.get("/restroom", postgresController.getAllRestroom);
+
+app.get("/restroom/:id", postgresController.getRestroom);
+
 app.listen(config.appConfig.PORT, (err) => {
   console.log(`Listening to Port ${config.appConfig.PORT}`);
   if (err) console.log(err);
