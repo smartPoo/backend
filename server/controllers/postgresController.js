@@ -55,13 +55,13 @@ exports.janitorUpdateStatus = async (req, res) => {
 };
 
 exports.getAllRestroom = async (req, res) => {
-  const queryText = "SELECT x.*, gender, faculty, building, floor" + 
-                    "FROM (SELECT restroom_id, SUM(current_vacancy) AS vacancy, SUM(current_status) AS status, COUNT(*) AS total" + 
-                          "FROM toilet" +
-                          "JOIN restroom USING(restroom_id)" + 
-                          "GROUP BY restroom_id) x" + 
-                    "JOIN restroom USING(restroom_id)" + 
-                    "JOIN location USING(location_id)";
+  const queryText = "SELECT x.*, gender, faculty, building, floor " + 
+                    "FROM (SELECT restroom_id, SUM(current_vacancy) AS vacancy, SUM(current_status) AS status, COUNT(*) AS total " + 
+                          "FROM toilet " +
+                          "JOIN restroom USING(restroom_id) " + 
+                          "GROUP BY restroom_id) x " + 
+                    "JOIN restroom USING(restroom_id) " + 
+                    "JOIN location USING(location_id) ";
   let respond = new Array();
 
   try {
@@ -102,9 +102,9 @@ exports.getAllRestroom = async (req, res) => {
 
 exports.getRestroom = async (req, res) => {
   const { id } = req.params;
-  const queryText = "SELECT toilet_no, current_tissue, current_dustbin" + 
-                    "FROM Toilet" + 
-                    "WHERE restroom_id = $1";
+  const queryText = "SELECT toilet_no, current_tissue, current_dustbin " + 
+                    "FROM Toilet " + 
+                    "WHERE restroom_id = $1 ";
   let respond = new Array();
 
   try {
