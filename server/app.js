@@ -21,6 +21,12 @@ app.get("/restroom", postgresController.getAllRestroom);
 
 app.get("/restroom/:id", postgresController.getRestroom);
 
+app.post("/activityHistory", postgresController.getActivityHistory);
+
+app.post("/getToDoList", postgresController.getToDoList);
+
+app.post("/completeTask", postgresController.completeTask);
+
 app.listen(config.appConfig.PORT, (err) => {
   console.log(`Listening to Port ${config.appConfig.PORT}`);
   if (err) console.log(err);
