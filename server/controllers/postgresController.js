@@ -9,6 +9,36 @@ const pgClient = new Pool({
   port: config.pgConfig.pgPort,
 });
 
+const facultyCode = {
+  "01": "STI",
+  "02": "OAA",
+  "20": "GRAD",
+  "21": "ENG",
+  "22": "ARTS",
+  "23": "SCI",
+  "24": "POLSCI",
+  "25": "ARCH",
+  "26": "ACC",
+  "27": "EDU",
+  "28": "COMART",
+  "29": "ECON",
+  "30": "MED",
+  "31": "VET",
+  "32": "DENT",
+  "33": "Rx",
+  "34": "LAW",
+  "35": "FAA",
+  "36": "NURS",
+  "37": "AHS",
+  "38": "PSY",
+  "39": "SPSC",
+  "40": "CUSAR",
+  "51": "CPS",
+  "53": "CPHS",
+  "55": "CULI",
+  "56": "SCII",
+}
+
 exports.updateToilet = async (req, res) => {
   let dustbin = req.body.dustbin;
   let tissue = req.body.tissue;
@@ -83,12 +113,13 @@ exports.getAllRestroom = async (req, res) => {
         status = "green";
       }
       const occupancy = row["vacancy"] + " / " + row["total"];
+      const faculty = facultyCode[row["faculty"]];
 
       //append to respond
       respond.push({
         restroomID: row["restroom_id"],
         status: status,
-        faculty: row["faculty"],
+        facultyCode: faculty,
         building: row["building"],
         floor: row["floor"],
         gender: row["gender"],
@@ -103,7 +134,7 @@ exports.getAllRestroom = async (req, res) => {
 };
 
 exports.getRestroom = async (req, res) => {
-  const { id } = req.params;
+  const id = req.query.id;
   const queryText =
     "SELECT toilet_no, current_tissue, current_dustbin " +
     "FROM Toilet " +
@@ -146,7 +177,7 @@ exports.getActivityHistory = async (req, res) => {
     console.log(err);
   }
 
-  res.push({ data: respond });
+  res.send({ data: respond });
 };
 
 exports.getToDoList = async (req, res) => {

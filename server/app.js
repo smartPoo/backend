@@ -9,6 +9,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 app.use(logger("dev"));
 
 app.post("/updateToilet", postgresController.updateToilet);
@@ -17,9 +18,9 @@ app.post("/janitorClean", postgresController.janitorCompleteClean);
 
 app.post("/janitorUpdateStatus", postgresController.janitorUpdateStatus);
 
-app.get("/restroom", postgresController.getAllRestroom);
+app.get("/allRestroom", postgresController.getAllRestroom);
 
-app.get("/restroom/:id", postgresController.getRestroom);
+app.get("/restroom", postgresController.getRestroom);
 
 app.post("/activityHistory", postgresController.getActivityHistory);
 
