@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
 		[theme.breakpoints.up("md")]: {
 			fontSize: "1.2em",
 		},
+		[theme.breakpoints.down("xs")]: {
+			maxWidth: "50px",
+		},
 	},
 	infoSubText: {
 		fontSize: "0.6em",
@@ -122,7 +125,7 @@ const HomeDropDownInfo: React.FC<HomeDropDownInfoProps> = ({
 									className={classes.dropDownIconImg}
 								/>
 								<Typography className={classes.infoMainText}>
-									{toilet.remainingTissue * 100}% <small>Remaining</small>
+									{toilet.remainingTissue}% <small>Remaining</small>
 								</Typography>
 							</Grid>
 							<Grid item xs={3} className={classes.dropDownTextPart}>
@@ -132,11 +135,11 @@ const HomeDropDownInfo: React.FC<HomeDropDownInfoProps> = ({
 									className={classes.dropDownIconImg}
 								/>
 								<Typography className={classes.infoMainText}>
-									{toilet.remainingDustbin * 100}% <small>Remaining</small>
+									{toilet.remainingDustbin}% <small>Remaining</small>
 								</Typography>
 							</Grid>
 							<Grid item xs={4} className={classes.dropDownTextPart}>
-								{toilet.issues.length > 0 ? (
+								{toilet.issues?.length > 0 ? (
 									<img
 										src={alarm}
 										alt="WarningIcon"
@@ -145,7 +148,7 @@ const HomeDropDownInfo: React.FC<HomeDropDownInfoProps> = ({
 								) : null}
 								<Container className={classes.dropDownWarningContainer}>
 									{/* ------ Issues Mapping ------ */}
-									{toilet.issues.map((issue) => (
+									{toilet.issues?.map((issue) => (
 										<Typography
 											key={`${restroomID}:${toilet.toilet}:${issue}`}
 											className={classes.dropDownWarning}>

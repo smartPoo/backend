@@ -102,9 +102,9 @@ const InfoBar: React.FC<InfoBarProps> = ({
 
 		axios({
 			method: "GET",
-			url: `https://smart-poo-test-api.herokuapp.com/toiletList`,
+			url: `/api/restroom`,
 			params: {
-				toiletID: restroomID.substring(1),
+				id: restroomID.substring(1),
 			},
 		})
 			.then((res) => {
@@ -130,7 +130,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
 					<Typography
 						className={
 							classes.infoBarText
-						}>{`${facultyCode}/${building}/${floor} (${
+						}>{`${faculty}/${building}/Floor ${floor} (${
 						gender === 1 ? "M" : "F"
 					})`}</Typography>
 				</Grid>
