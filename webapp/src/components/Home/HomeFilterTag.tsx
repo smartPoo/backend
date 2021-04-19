@@ -44,7 +44,7 @@ const HomeFilterTag: React.FC<HomeFilterTagProps> = ({ formSelector }) => {
 	useEffect(() => {
 		let buildingList =
 			locationData.find(
-				(fac) => fac.facultyName === formSelector.facultySelector
+				(fac) => fac.facultyCode === formSelector.facultySelector
 			)?.buildings || [];
 		setBuildingInfo(buildingList);
 	}, [formSelector.facultySelector, locationData]);
