@@ -119,7 +119,8 @@ exports.getAllRestroom = async (req, res) => {
       respond.push({
         restroomID: row["restroom_id"],
         status: status,
-        facultyCode: faculty,
+        faculty: faculty,
+        facultyCode:row["faculty"],
         building: row["building"],
         floor: row["floor"],
         gender: row["gender"],
