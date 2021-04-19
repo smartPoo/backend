@@ -23,7 +23,7 @@ function App() {
 
 		axios({
 			method: "GET",
-			url: "https://smart-poo-test-api.herokuapp.com/restroomList",
+			url: "/api/allRestroom",
 		})
 			.then((res) => {
 				dispatch(fetchAllData(res.data));

@@ -8,7 +8,7 @@ interface HomeContentListProps {
 	dataList: Restroom[];
 	starterKey: string;
 	formSelector?: FormSelectorState;
-	genderSelector?: string;
+	genderSelector?: number;
 }
 const HomeContentList: React.FC<HomeContentListProps> = ({
 	dataList,

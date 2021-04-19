@@ -63,7 +63,7 @@ interface InfoBarProps {
 	facultyCode: string;
 	building: string;
 	floor: string;
-	gender: string;
+	gender: number;
 	occupancy: string;
 }
 const InfoBar: React.FC<InfoBarProps> = ({
@@ -130,10 +130,9 @@ const InfoBar: React.FC<InfoBarProps> = ({
 					<Typography
 						className={
 							classes.infoBarText
-						}>{`${facultyCode}/${building}/${floor} (${gender.substring(
-						0,
-						1
-					)})`}</Typography>
+						}>{`${facultyCode}/${building}/${floor} (${
+						gender === 1 ? "M" : "F"
+					})`}</Typography>
 				</Grid>
 				<Grid item xs={1} className={classes.infoBarIconGrid}>
 					<Person style={{ color: "#000000" }} />
