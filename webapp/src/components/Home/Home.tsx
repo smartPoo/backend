@@ -25,7 +25,7 @@ const Home: React.FC<HomeProps> = ({ loading }) => {
 		NearestData: [],
 		ListData: [],
 	});
-	const [genderSelector, setGenderSelector] = useState<string>("");
+	const [genderSelector, setGenderSelector] = useState<number>(-1);
 	const [facultySelector, setFacultySelector] = useState<string>("");
 	const [buildingSelector, setBuildingSelector] = useState<string>("");
 	const [floorSelector, setFloorSelector] = useState<string>("");

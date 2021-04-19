@@ -57,7 +57,7 @@ const HomeFilterTag: React.FC<HomeFilterTagProps> = ({ formSelector }) => {
 	}, [formSelector.buildingSelector, buildingInfo]);
 
 	const handleGenderSelectorChange = (value: string) => {
-		formSelector.setGenderSelector(value);
+		formSelector.setGenderSelector(parseInt(value));
 	};
 	const handleFacultySelectorChange = (value: string) => {
 		formSelector.setFacultySelector(value);
@@ -90,14 +90,14 @@ const HomeFilterTag: React.FC<HomeFilterTagProps> = ({ formSelector }) => {
 						}>
 						<option
 							aria-label="None"
-							value=""
+							value={undefined}
 							disabled
-							defaultValue=""
+							defaultValue="Any"
 							style={{ display: "none" }}
 						/>
-						<option>Male</option>
-						<option>Female</option>
-						<option>Not Specified</option>
+						<option value={1}>Male</option>
+						<option value={0}>Female</option>
+						<option value={-1}>Any</option>
 					</Select>
 				</FormControl>
 			</div>
@@ -127,7 +127,9 @@ const HomeFilterTag: React.FC<HomeFilterTagProps> = ({ formSelector }) => {
 							style={{ display: "none" }}
 						/>
 						{locationData.map((facultyInfo) => (
-							<option key={`fac-${facultyInfo.facultyCode}`}>
+							<option
+								key={`fac-${facultyInfo.facultyCode}`}
+								value={facultyInfo.facultyCode}>
 								{facultyInfo.facultyName}
 							</option>
 						))}
