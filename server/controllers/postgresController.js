@@ -102,7 +102,7 @@ exports.getAllRestroom = async (req, res) => {
     const restroom = allRestroom.rows;
 
     restroom.forEach((row) => {
-      //calculate status and occupancy
+      //calculate status, occupancy and faculty
       const malfunction = (row["status"] + row["vacancy"] / 2) / row["total"];
       let status;
       if (malfunction >= 0.7) {
@@ -119,7 +119,8 @@ exports.getAllRestroom = async (req, res) => {
       respond.push({
         restroomID: row["restroom_id"],
         status: status,
-        facultyCode: faculty,
+        faculty: faculty,
+        facultyCode: row["faculty"],
         building: row["building"],
         floor: row["floor"],
         gender: row["gender"],
