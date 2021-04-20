@@ -40,4 +40,6 @@ jobs:
         KEY: ${{ secrets.SSH_KEY }}
         script: |
           cd production
+          rm docker-compose.yml
+          mv docker-compose.real.yml docker-compose.yml
           docker-compose up --build -d
