@@ -18,6 +18,17 @@ jobs:
     name: ssh into droplet
     runs-on: ubuntu-latest
     steps:
+    - name: Copy file via scp
+      uses: appleboy/scp-action@master
+      env:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+      with:
+        source: "."
+        target: "/root/production"
+        
     - name: Executing remote command
       uses: appleboy/ssh-action@master
       with:
@@ -25,4 +36,6 @@ jobs:
         USERNAME: ${{ secrets.SSH_USERNAME }}
         PORT: 22
         KEY: ${{ secrets.SSH_KEY }}
-        script: whoami
+        script: |
+          cd production
+          docker-compose up --build -d
