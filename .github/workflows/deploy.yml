@@ -26,7 +26,7 @@ jobs:
         PORT: 22
         KEY: ${{ secrets.SSH_KEY }}
       with:
-        source: "."
+        source: "./*"
         target: "/root/production"
         
     - name: Executing remote command
@@ -37,5 +37,4 @@ jobs:
         PORT: 22
         KEY: ${{ secrets.SSH_KEY }}
         script: |
-          cd production
-          docker-compose up --build -d
+          pwd
