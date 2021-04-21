@@ -137,7 +137,7 @@ exports.getAllRestroom = async (req, res) => {
 exports.getRestroom = async (req, res) => {
   const id = req.query.id;
   const queryText =
-    "SELECT toilet_no, current_tissue, current_dustbin " +
+    "SELECT toilet_no, current_tissue, current_dustbin, visits_since_lastclean " +
     "FROM Toilet " +
     "WHERE restroom_id = $1 ";
   let respond = new Array();
@@ -152,6 +152,7 @@ exports.getRestroom = async (req, res) => {
         toilet: row["toilet_no"],
         remainingTissue: row["current_tissue"],
         remainingDustbin: row["current_dustbin"],
+        visits: row["visits_since_lastclean"],
       });
     });
   } catch (err) {
