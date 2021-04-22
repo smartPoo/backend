@@ -69,6 +69,7 @@ interface InfoBarProps {
 const InfoBar: React.FC<InfoBarProps> = ({
 	restroomID,
 	status,
+	faculty,
 	facultyCode,
 	building,
 	floor,
