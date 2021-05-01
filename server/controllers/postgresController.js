@@ -189,7 +189,7 @@ exports.getToDoList = async (req, res) => {
   try {
     const listOfManagedToilet = await (
       await pgClient.query(
-        `SELECT t.* FROM Manage m, Toilet t WHERE m.emp_id='${emp_id}' AND m.restroom_id=t.restroom_id;`
+        `SELECT t.*,l.*,r.gender FROM Manage m, Toilet t, Restroom r, Location l WHERE m.emp_id='${emp_id}' AND m.restroom_id=t.restroom_id AND t.restroom_id=r.restroom_id AND l.location_id=r.location_id;`
       )
     ).rows;
     listOfManagedToilet.forEach((toilet) => {
@@ -198,6 +198,11 @@ exports.getToDoList = async (req, res) => {
           restroom_id: toilet["restroom_id"],
           toilet_no: toilet["toilet_no"],
           task: "dustbin",
+          faculty: facultyCode[toilet["faculty"]],
+          facultyCode: toilet["faculty"],
+          building: toilet["building"],
+          floor: toilet["floor"],
+          gender: toilet["gender"],
         });
       }
       if (toilet["current_tissue"] < 10) {
@@ -205,13 +210,23 @@ exports.getToDoList = async (req, res) => {
           restroom_id: toilet["restroom_id"],
           toilet_no: toilet["toilet_no"],
           task: "tissue",
+          faculty: facultyCode[toilet["faculty"]],
+          facultyCode: toilet["faculty"],
+          building: toilet["building"],
+          floor: toilet["floor"],
+          gender: toilet["gender"],
         });
       }
-      if (toilet["visits_since_lastclean"] > 20) {
+      if (toilet["visits_since_lastclean"] >= 15) {
         respond.push({
           restroom_id: toilet["restroom_id"],
           toilet_no: toilet["toilet_no"],
           task: "clean",
+          faculty: facultyCode[toilet["faculty"]],
+          facultyCode: toilet["faculty"],
+          building: toilet["building"],
+          floor: toilet["floor"],
+          gender: toilet["gender"],
         });
       }
     });
