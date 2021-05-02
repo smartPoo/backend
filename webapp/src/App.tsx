@@ -14,7 +14,7 @@ function App() {
 	useEffect(() => {
 		axios({
 			method: "GET",
-			url: "http://139.59.226.250/api/allRestroom",
+			url: "/api/allRestroom",
 		})
 			.then((res) => {
 				dispatch(fetchAllData(res.data));
