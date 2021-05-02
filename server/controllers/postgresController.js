@@ -239,7 +239,7 @@ exports.getToDoList = async (req, res) => {
 exports.completeTask = async (req, res) => {
   let emp_id = req.body.emp_id;
   let taskname = req.body.taskname;
-  let _timestamp = new Date().toLocaleDateString();
+  let _timestamp = new Date().toLocaleString();
   let msg;
   try {
     msg = await pgClient.query(
