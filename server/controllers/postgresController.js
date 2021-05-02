@@ -50,7 +50,7 @@ exports.updateToilet = async (req, res) => {
     const updateStatus = pgClient.query(
       `UPDATE Toilet SET current_dustbin=${dustbin},` +
         ` current_tissue=${tissue},` +
-        ` current_status=${status},` +
+        ` current_vacancy=${status},` +
         ` visits_since_lastclean=${visits}` +
         ` WHERE Toilet_no='${toilet_no}' AND Restroom_id='${restroom_id}';`
     );
