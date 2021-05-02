@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import { CssBaseline } from "@material-ui/core";
@@ -20,15 +21,25 @@ interface HomeProps {
 	loading: boolean;
 }
 const Home: React.FC<HomeProps> = ({ loading }) => {
+	const params = new URLSearchParams(useLocation().search);
+	const locationData = useSelector(
+		(state: RootState) => state.LocationData.data
+	);
+	var facInit = params.get("faculty");
+	var bldInit = params.get("building");
+	var flrInit = params.get("floor");
 	const allData = useSelector((state: RootState) => state.AllData);
 	const [fullData, setFullData] = useState<FullData>({
 		NearestData: [],
 		ListData: [],
 	});
 	const [genderSelector, setGenderSelector] = useState<number>(-1);
-	const [facultySelector, setFacultySelector] = useState<string>("");
-	const [buildingSelector, setBuildingSelector] = useState<string>("");
-	const [floorSelector, setFloorSelector] = useState<string>("");
+
+	const [facultySelector, setFacultySelector] = useState<string>(facInit || "");
+	const [buildingSelector, setBuildingSelector] = useState<string>(
+		bldInit || ""
+	);
+	const [floorSelector, setFloorSelector] = useState<string>(flrInit || "");
 
 	const formSelector: FormSelectorState = {
 		genderSelector,
@@ -70,6 +81,7 @@ const Home: React.FC<HomeProps> = ({ loading }) => {
 		facultySelector,
 		buildingSelector,
 		floorSelector,
+		locationData,
 	]);
 
 	return (
