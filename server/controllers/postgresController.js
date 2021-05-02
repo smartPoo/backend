@@ -167,12 +167,11 @@ exports.getActivityHistory = async (req, res) => {
   let respond = [];
   try {
     const janitorActivities = (
-      await pgClient.query(`SELECT * FROM Activity WHERE emp_id='${emp_id}'`)
+      await pgClient.query(`SELECT Activity.*,Location.* FROM Activity, Restroom,Location WHERE emp_id='${emp_id}' AND Activity.restroom_id=Restroom.restroom_id AND Restroom.location_id=Location.location_id`)
     ).rows;
     janitorActivities.forEach((activity) => {
       respond.push({
-        taskName: activity["taskname"],
-        timestamp: activity["_timestamp"],
+        data: activity
       });
     });
   } catch (err) {
@@ -242,7 +241,7 @@ exports.completeTask = async (req, res) => {
   let _timestamp = new Date().toLocaleDateString();
   try {
     await pgClient.query(
-      `INSERT INTO Activity VALUES ('${emp_id}', '${taskname}', '${_timestamp}');`
+      `INSERT INTO Activity VALUES ('${emp_id}', '${taskname}', '${_timestamp}', '${req.body.toilet_no}','${req.body.restroom_id}');`
     );
   } catch (err) {
     console.log(err);
