@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -28,7 +29,13 @@ function App() {
 
 	return (
 		<div className="App">
-			<Home loading={loading} />
+			<Router>
+				<Switch>
+					<Route path="/" exact>
+						<Home loading={loading} />
+					</Route>
+				</Switch>
+			</Router>
 		</div>
 	);
 }

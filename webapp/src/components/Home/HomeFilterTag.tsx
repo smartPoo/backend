@@ -60,14 +60,17 @@ const HomeFilterTag: React.FC<HomeFilterTagProps> = ({ formSelector }) => {
 		formSelector.setGenderSelector(parseInt(value));
 	};
 	const handleFacultySelectorChange = (value: string) => {
+		if (value === "-1") value = "";
 		formSelector.setFacultySelector(value);
 		handleBuildingSelectorChange("");
 	};
 	const handleBuildingSelectorChange = (value: string) => {
+		if (value === "-1") value = "";
 		formSelector.setBuildingSelector(value);
 		handleFloorSelectorChange("");
 	};
 	const handleFloorSelectorChange = (value: string) => {
+		if (value === "-1") value = "";
 		formSelector.setFloorSelector(value);
 	};
 
@@ -123,9 +126,10 @@ const HomeFilterTag: React.FC<HomeFilterTagProps> = ({ formSelector }) => {
 							aria-label="None"
 							value=""
 							disabled
-							defaultValue=""
+							defaultValue="-1"
 							style={{ display: "none" }}
 						/>
+						<option value="-1">Any</option>
 						{locationData.map((facultyInfo) => (
 							<option
 								key={`fac-${facultyInfo.facultyCode}`}
@@ -133,7 +137,6 @@ const HomeFilterTag: React.FC<HomeFilterTagProps> = ({ formSelector }) => {
 								{facultyInfo.facultyName}
 							</option>
 						))}
-						<option value="">Any</option>
 					</Select>
 				</FormControl>
 
@@ -158,15 +161,15 @@ const HomeFilterTag: React.FC<HomeFilterTagProps> = ({ formSelector }) => {
 							aria-label="None"
 							value=""
 							disabled
-							defaultValue=""
+							defaultValue="-1"
 							style={{ display: "none" }}
 						/>
+						<option value="-1">Any</option>
 						{buildingInfo.map((buildingInfo) => (
 							<option key={`bld-${buildingInfo.buildingName}`}>
 								{buildingInfo.buildingName}
 							</option>
 						))}
-						<option value="">Any</option>
 					</Select>
 				</FormControl>
 
@@ -189,13 +192,13 @@ const HomeFilterTag: React.FC<HomeFilterTagProps> = ({ formSelector }) => {
 							aria-label="None"
 							value=""
 							disabled
-							defaultValue=""
+							defaultValue="-1"
 							style={{ display: "none" }}
 						/>
+						<option value="-1">Any</option>
 						{floorInfo.map((floor) => (
 							<option key={`flr-${floor}`}>{floor}</option>
 						))}
-						<option value="">Any</option>
 					</Select>
 				</FormControl>
 			</div>
