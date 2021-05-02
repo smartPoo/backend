@@ -170,6 +170,7 @@ exports.getActivityHistory = async (req, res) => {
       await pgClient.query(`SELECT Activity.*,Location.* FROM Activity, Restroom,Location WHERE emp_id='${emp_id}' AND Activity.restroom_id=Restroom.restroom_id AND Restroom.location_id=Location.location_id`)
     ).rows;
     janitorActivities.forEach((activity) => {
+      activity.faculty = facultyCode[activity["faculty"]]
       respond.push({
         data: activity
       });
