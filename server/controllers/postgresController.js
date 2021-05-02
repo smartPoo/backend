@@ -240,12 +240,13 @@ exports.completeTask = async (req, res) => {
   let emp_id = req.body.emp_id;
   let taskname = req.body.taskname;
   let _timestamp = new Date().toLocaleDateString();
+  let msg;
   try {
-    await pgClient.query(
+    msg = await pgClient.query(
       `INSERT INTO Activity VALUES ('${emp_id}', '${taskname}', '${_timestamp}', '${req.body.toilet_no}','${req.body.restroom_id}');`
     );
   } catch (err) {
     console.log(err);
   }
-  res.send("OK!");
+  res.send({msg});
 };
